@@ -77,11 +77,27 @@ loadData().then(data => {
     });
 
     function updateBar(){
-        return;
+        return
     }
 
     function updateScattePlot(){
-        return;
+        const xValues = data.map(d => Number(d[xParam][year]));
+        const xDomain = d3.extent (xValues);
+        x.domain(xDomain); //[min, max] по xParam
+
+        const yValues = data.map(d => Number(d[yParam][year]));
+        const yDomain = d3.extent (yValues);
+        y.domain(yDomain); //[min. max] по yParam
+
+        const selection = scatterPlot.selectAll('circle').data(data);       
+
+        const circles = selection.enter()  
+                    .append('circle'); /*создаем элементы */
+
+        selection.merge(circles)
+                    .attr('r',50)
+                    .attr('cx', d=>x(Number(d[xParam][year])))
+                    .attr('cy', d=>y(Number(d[yParam][year])));
     }
 
     updateBar();
