@@ -77,8 +77,31 @@ loadData().then(data => {
     });
 
     function updateBar(){
-        return
+        const barData = d3.nest()
+        .key(d=>d.region)
+        .rollup(leaves => {
+            return d3.mean(leaves.map(d=> Number(d[param][year])))
+        })
+        .entries(data);
+    
+
+       xBar.domain(barData.map(d=> d.key));
+       yBar.domain(d3.extent(barData.map(d=> d.value)));
+ 
+       const selection = barChart.selectAll('rect').data(barData);
+       const bars = selection.enter().append('rect');
+
+       selection.merge(bars)
+               .attr('x', d => xBar(d.key)) 
+               .attr('y', d => yBar(d.value))
+               .attr('fill', d=>colorScale(d.key))
+               .attr('height',d => height - yBar(d.value))
+               .attr('width', 100);
     }
+
+
+
+
 
     function updateScattePlot(){
         const xValues = data.map(d => Number(d[xParam][year]));
@@ -98,7 +121,7 @@ loadData().then(data => {
                     .attr('r', 50)
                     .attr('cx', d=>x(Number(d[xParam][year])))
                     .attr('cy', d=>y(Number(d[yParam][year])))
-                    .attr('fill', '#f4f4f4');
+                    .attr('fill', d=>colorScale(d.region));
     }
 
     updateBar();
