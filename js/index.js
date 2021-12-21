@@ -95,9 +95,10 @@ loadData().then(data => {
                     .append('circle'); /*создаем элементы */
 
         selection.merge(circles)
-                    .attr('r',50)
+                    .attr('r', 50)
                     .attr('cx', d=>x(Number(d[xParam][year])))
-                    .attr('cy', d=>y(Number(d[yParam][year])));
+                    .attr('cy', d=>y(Number(d[yParam][year])))
+                    .attr('fill', '#f4f4f4');
     }
 
     updateBar();
