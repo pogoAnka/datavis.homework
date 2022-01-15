@@ -96,7 +96,7 @@ loadData().then(data => {
                .attr('y', d => yBar(d.value))
                .attr('fill', d=>colorScale(d.key))
                .attr('height',d => height - yBar(d.value))
-               .attr('width', 100);
+               .attr('width', 1000);
     }
 
 
