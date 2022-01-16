@@ -94,7 +94,8 @@ loadData().then(data => {
                                                 });
         var barData = [];
         regs.forEach(function (r, index){barData.push({'keyR': r, 'keyAvg': vals[index]}); 
-                                return;})
+                                return;
+                                            })
 
 
 
@@ -185,7 +186,6 @@ loadData().then(data => {
 
 
 
-
         function updateLineChart(){
             
             lineChart.selectAll('path').remove()
@@ -221,8 +221,7 @@ loadData().then(data => {
                                 .x(d => x(d.keyY))
                                 .y(d => y(d.keyV))
                     )
-        }
-       
+        }  
 
         return;
     }
